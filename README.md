@@ -8,7 +8,12 @@ We proposed a method based on the multiscale technique for stochastic dynamical 
 
 <img src="https://github.com/cliffzhou92/MuTrans-release/blob/master/Figures/algorithm.png" width="600">
 
-# Basic Usage
+## Installation
+
+
+## Basic Usage
+### In Matlab:
+
 ```
 Output = DynamicalAnalysis(data,par)
 
@@ -56,8 +61,7 @@ Genes = GeneAnalysis(i,j,Output,par)
 
 ```
 
-
-## Installation
+### In Python:
 
 
 
