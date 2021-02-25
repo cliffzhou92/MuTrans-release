@@ -1,5 +1,6 @@
 # MuTrans (The MUltiscale method for TRANSient cells )
-Dissecting Transition Cells from Single-cell Transcriptome through Multi-Scale Stochastic Dynamics
+
+**Dissecting Transition Cells from Single-cell Transcriptome through Multi-Scale Stochastic Dynamics**
 
 Peijie Zhou, Shuxiong Wang, Tiejun Li, Qing Nie
 
@@ -9,7 +10,10 @@ We proposed a method based on the multiscale technique for stochastic dynamical 
 <img src="https://github.com/cliffzhou92/MuTrans-release/blob/master/Figures/algorithm.png" width="600">
 
 ## Installation
+### In Matlab:
+o display gene expression matrix by Transcendental, one need the 'smooth' function (https://www.mathworks.com/help/curvefit/smoothing.html) from Curve Fitting toolbox of Matlab.
 
+### In Python:
 
 ## Basic Usage
 ### In Matlab:
