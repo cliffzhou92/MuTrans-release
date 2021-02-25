@@ -1,4 +1,60 @@
-# MuTrans
+# MuTrans (The MUltiscale method for TRANSient cells )
+Dissecting Transition Cells from Single-cell Transcriptome through Multi-Scale Stochastic Dynamics
+
+Peijie Zhou, Shuxiong Wang, Tiejun Li, Qing Nie
+
+
+We proposed a method based on the multiscale technique for stochastic dynamical systems to analyze single-cell transcriptome data and identify transition cells. MuTrans naturally connects the languages of dynamical system with single-cell data analysis to describe cell-fate transitions, i.e. Attractor Basins with Meta-stable States, Saddle points with Transient States, and Most Probable Paths with Cell Lineages.
+
+<img src="https://github.com/cliffzhou92/MuTrans-release/blob/master/Figures/algorithm.png" width="600">
+
+# Basic Usage
+```
+Output = DynamicalAnalysis(data,par)
+
+%% Run the multi-scale analysis, returns the attractor basins, coarse-grained transition probabilities and membership assignment
+
+%% data: the pre-processed single-cell gene expression, with N_cells x N_genes
+
+%% par: the adjustable parameters
+```
+
+```
+Lineage = InferLineage(Output,root,par)
+
+%% Infer the cell lineage based on multi-scale analysis results
+
+%% Output: the output object from DynamicalAnalysis function
+
+%% root: the root state of Lineage
+
+%% par: the adjustable parameters
+
+```
+
+```
+Land = ConstructLandscape(Output,par)
+
+%% Construct and visualize the dynamical manifold
+
+%% Output: the output object from DynamicalAnalysis function
+
+%% par: the adjustable parameters
+
+```
+
+```
+Genes = GeneAnalysis(i,j,Output,par)
+
+%% Transition cell and gene analysis from state transition i to j.
+
+%% i and j: the starting and targeting states for analysis
+
+%% Output: the output object from DynamicalAnalysis function
+
+%% par: the adjustable parameters
+
+```
 
 
 ## Installation
