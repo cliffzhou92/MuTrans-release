@@ -7,7 +7,7 @@ Peijie Zhou, Shuxiong Wang, Tiejun Li, Qing Nie
 
 We proposed a method based on the multiscale technique for stochastic dynamical systems to analyze single-cell transcriptome data and identify transition cells. MuTrans naturally connects the languages of dynamical system with single-cell data analysis to describe cell-fate transitions, i.e. Attractor Basins with Meta-stable States, Saddle points with Transient States, and Most Probable Paths with Cell Lineages.
 
-<img src="https://github.com/cliffzhou92/MuTrans-release/tree/main/img/algorithm.png" width="600">
+<img src="https://github.com/cliffzhou92/MuTrans-release/blob/main/img/algorithm.png" width="600">
 
 ## Installation
 ### In Matlab:
@@ -70,6 +70,12 @@ Genes = GeneAnalysis(i,j,Output,par)
 
 ### In Python:
 
+```
+import pyMuTrans as pm
+out = pm.plot_cluster_num(adata, par, k_plot= 10) # use EPI to determine number of clusters
+adata = pm.dynamical_analysis(adata,par) # MuTrans Analysis on Anndata obejct
+pm.infer_lineage(adata,si=2,sf=0,method = "MPPT",size_point =40, size_text = 10,alpha_point = 0.5) # plot the transition trajectory on dynamical manifold
+```
 
 
 ## Example Notebooks
