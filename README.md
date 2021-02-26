@@ -15,7 +15,8 @@ o display gene expression matrix by Transcendental, one need the 'smooth' functi
 
 ### In Python:
 1. install the matlab engine API for python, [instructions here](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html)
-2. install the dependency package Scanpy and PyEMMA.
+2. install the dependency package [PyEMMA](http://emma-project.org/latest/INSTALL.html).
+3. cd to the ``./Example/`` folder and analysis in Jupyter notebook
 
 ## Basic Usage
 ### In Matlab:
