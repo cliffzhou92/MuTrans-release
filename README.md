@@ -81,8 +81,8 @@ pm.infer_lineage(adata,si=2,sf=0,method = "MPPT",size_point =40, size_text = 10,
 ## Example Notebooks
 **System** | **Data Source** | **Notebook File** | **PDF File**
 ------------| -------------- | ------------|------------
-Saddle-Node Bifurcation | Simulation Data in this study | here | here
-Epithelial-Mesenchymal Transition |[Pastushenko et al.](https://www.nature.com/articles/s41586-018-0040-3)|here |here
+Saddle-Node Bifurcation | Simulation Data in this study | [example_saddle_node.mlx](https://github.com/cliffzhou92/MuTrans-release/blob/main/Example/example_saddle_node.mlx) | [example_saddle_node.pdf](https://github.com/cliffzhou92/MuTrans-release/blob/main/Example/example_saddle_node.pdf)
+Epithelial-Mesenchymal Transition |[Pastushenko et al.](https://www.nature.com/articles/s41586-018-0040-3)|[Matlab:example_emt.mlx](https://github.com/cliffzhou92/MuTrans-release/blob/main/Example/example_emt.mlx); [Python:example-emt.ipynb](https://github.com/cliffzhou92/MuTrans-release/blob/main/Example/example-emt.ipynb) |[Matlab: example_emt.pdf](https://github.com/cliffzhou92/MuTrans-release/blob/main/Example/example_emt.pdf);[Python: example-emt.pdf](https://github.com/cliffzhou92/MuTrans-release/blob/main/Example/example-emt.pdf)
 iPSC Reprogramming |[Bargaje et al.](https://www.pnas.org/content/early/2017/02/03/1621412114)|here|here
 Myelopoiesis |[Olsson et al.](https://www.nature.com/articles/nature19348) |here |here
 Lymphoid Lineage Blood Differentiation | [Herman et al.](https://www.nature.com/articles/nmeth.4662) |here|here
