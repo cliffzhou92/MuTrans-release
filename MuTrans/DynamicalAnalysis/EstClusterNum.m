@@ -1,4 +1,10 @@
 function out = EstClusterNum(data,par)
+
+
+if ~isfield(par,'order')
+    par.order = 2;
+end
+
 k = par.order;
 
 [N,~] = size(data);

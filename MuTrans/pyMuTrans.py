@@ -19,7 +19,6 @@ import numpy as np
 import pyemma.msm as msm
 import pyemma.plots as mpl
 import matplotlib.pyplot as plt
-import seaborn as sns
 import scipy
 import networks as nw
 
