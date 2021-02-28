@@ -10,7 +10,7 @@ function Output = DynamicalAnalysis (data, par)
 %   The metric in gaussian-kernel similarity between cells. Default is
 %   Euclidean. Can also be Cosine or Correlation.
 %   par.weight_scale: Logic parameter in constructing cell-cell rwTPM. Wheter
-%   to scale the constructed rwTPM. Default is false.
+%   to scale the constructed rwTPM. Default is true.
 %   par.alpha_scale: Logic parameter in constructing cell-cell rwTPM. The power appear in the denominator to scale rwTPM as in diffusion map. Default is 0.
 %   par.initial: The initial cell assignment in coarse-graining of cell-cell rwTPM. Default is tSNE+
 %   kemans. Can also be 'random' or 'pca'.
