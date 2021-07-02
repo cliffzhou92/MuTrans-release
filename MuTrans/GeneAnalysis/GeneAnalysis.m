@@ -13,7 +13,7 @@ function out = GeneAnalysis(cluster_id1, cluster_id2, DA_results, par)
 %   par.thresh_de_pvalues: the threshold of maximum p value to include in
 %   the DE genes test between two states. Default is 1e-3.
 %   par.thresh_ms_pvalues: the threshold of maximum p value to distinguish
-%   the MS genes. Default is 1d-4.
+%   the MS genes. Default is 1e-4.
 %   par.thresh_td_genes: the threshold of minimum gene-TCS correlation to
 %   define TD genes.
 %   par.corr_choice£º the choice of correlation function to measure TD genes. Can be 'pearson','kendall' or 'spearman'.pearson Default is pearson.
@@ -343,10 +343,9 @@ L_ms_g2 = size(data_ms_g2,2);
 L_ih_g2 = size(data_ih_g2,2);
 select_L_ms_g2 = min(L_ms_g2,L_select_top_genes);
 select_L_ih_g2 = min(L_ih_g2,L_select_top_genes);
+
 data_ms_g2_select = data_ms_g2(:,(L_ms_g2-select_L_ms_g2+1):L_ms_g2);
 data_ih_g2_select = data_ih_g2(:,1:select_L_ih_g2);
-
-
 
 mean_ms_g2 = mean(data_ms_g2_select,2);
 std_ms_g2 = std(data_ms_g2_select');
@@ -356,8 +355,17 @@ std_ih_g2 = std(data_ih_g2_select');
 data_smooth_down = smooth_data(data_down_sort,par.smooth_span,par.smooth_method);
 L_genes_down = length(genes_down);
 
+genes_trans_up = gene_name_sort(trans_up_id);
+genes_trans_down = gene_name_sort(trans_down_id);
+gene_ms_g1_select = genes_up_diff(1:select_L_ms_g1);
+gene_ih_g1_select = genes_up_undif((L_ih_g1-select_L_ih_g1+1):L_ih_g1);
+gene_trans_up_select = genes_trans_up(1:select_L_trans_up);
+gene_trans_down_select = genes_trans_down((L_trans_down-select_L_trans_down+1):L_trans_down);
+gene_ih_g2_select = genes_down_undiff(1:select_L_ih_g2);
+gene_ms_g2_select =genes_down_diff((L_ms_g2-select_L_ms_g2+1):L_ms_g2);
 
-
+data_whole_select = [data_ms_g1_select,data_ih_g1_select,data_trans_down_select,data_trans_up_select,data_ih_g2_select,data_ms_g2_select];
+genes_whole_select = [gene_ms_g1_select,gene_ih_g1_select,gene_trans_up_select,gene_trans_down_select,gene_ih_g2_select,gene_ms_g2_select];
 %% plot the figures
 
 L_genes_trans = length(gene_name_sort);
@@ -409,6 +417,7 @@ if par.output_heatmap
             yticks(1:length(gene_name_sort));
             yticklabels(gene_name_sort)
             set(gca,'TickLength',[0 0])
+            set(gca, 'FontName', 'Arial')
         end
         %{
         data_scale_org = data_scale(:,gene_keep_id);
@@ -471,6 +480,28 @@ if par.output_heatmap
             set(gca,'TickLength',[0 0])
         end
     end
+    
+    figure;
+    disp("Below is the heatmap of all top genes")
+    colormap redbluecmap;
+    data_whole_select = normalize_data(data_whole_select);
+    data_whole_select_smooth = smooth_data(data_whole_select,par.smooth_span,par.smooth_method);
+    imagesc(data_whole_select_smooth',clims);
+    hold on
+    plot(get(gca, 'xlim'),[select_L_ms_g1+0.5 select_L_ms_g1+0.5]);
+    plot(get(gca, 'xlim'),[select_L_ms_g1+select_L_ih_g1+0.5 select_L_ms_g1+select_L_ih_g1+0.5]);
+    plot(get(gca, 'xlim'),[select_L_trans_down+select_L_ms_g1+select_L_ih_g1+0.5 select_L_trans_down+select_L_ms_g1+select_L_ih_g1+0.5]);
+    plot(get(gca, 'xlim'),[select_L_trans_up+select_L_trans_down+select_L_ms_g1+select_L_ih_g1+0.5 select_L_trans_up+select_L_trans_down+select_L_ms_g1+select_L_ih_g1+0.5]);
+    plot(get(gca, 'xlim'),[select_L_ih_g2+select_L_trans_up+select_L_trans_down+select_L_ms_g1+select_L_ih_g1+0.5 select_L_ih_g2+select_L_trans_up+select_L_trans_down+select_L_ms_g1+select_L_ih_g1+0.5]);
+    set(gca,'ytick',[]);
+    set(gca,'xtick',[]);
+    if(par.display_genes_label)
+            yticks(1:length(genes_whole_select));
+            yticklabels(genes_whole_select)
+            set(gca,'TickLength',[0 0])
+            set(gca, 'FontName', 'Arial')
+    end
+    
     if par.display_mixing_id
         figure;        
         disp("Below is the gradual cell indentity change of the interested process")

@@ -42,6 +42,7 @@ def dynamical_analysis(sc_object,par):
     elif par['reduction_coord']== 'umap':
         X_embedding = sc_object.obsm['X_umap']
     
+    X_embedding = X_embedding- np.mean(X_embedding, axis =0)
     
     if (par.__contains__('reduce_large_scale') == False) or par['reduce_large_scale']== False :
         embedding_r = X_embedding[perm]
@@ -52,6 +53,17 @@ def dynamical_analysis(sc_object,par):
     land = eng.ConstructLandscape(out,par)
     sc_object.uns['da_out']=out
     sc_object.uns['land']=land
+    
+    if par.__contains__('write_anndata') and par['write_anndata']:
+        ind = np.argsort(perm)
+        sc_object.obs['land'] = np.asarray(land['land_cell'])[ind]
+        sc_object.obs['entropy'] = np.asarray(out['H']).ravel()[ind]
+        label = np.asarray(out['class_order']).astype(int)-1
+        sc_object.obs['attractor'] = label.astype(str).ravel()[ind]
+        sc_object.obsm['trans_coord'] = np.asarray(land['trans_coord'])[ind]
+        sc_object.obsm['membership'] = np.asarray(out['rho_class'])[ind]
+    
+    
     return sc_object
 
 def plot_landscape(sc_object,alpha_land = 0.5, show_colorbar = False):
@@ -78,7 +90,7 @@ def plot_cluster_num (sc_object, par = None, k_plot = 20, order =2.0):
 
     
     
-def infer_lineage(sc_object,si=0,sf=1,method = 'MPFT',flux_fraction = 0.9, size_state = 0.1, size_point = 50, alpha_land = 0.5, alpha_point = 0.5, size_text=20, show_colorbar = False):
+def infer_lineage(sc_object,si=0,sf=1,method = 'MPFT',flux_fraction = 0.9, size_state = 0.1, size_point = 50, alpha_land = 0.5, alpha_point = 0.5, size_text=20, show_colorbar = False, color_palette = None):
     projection = np.asarray(sc_object.uns['land']['trans_coord'])
     K = sc_object.uns['da_out']['k']
     K = int(K)
@@ -88,7 +100,9 @@ def infer_lineage(sc_object,si=0,sf=1,method = 'MPFT',flux_fraction = 0.9, size_
     centers = []
     labels = np.asarray(sc_object.uns['da_out']['class_order']).ravel()
     labels = labels.astype(int)-1
-    color_palette = sns.color_palette('Set1', K)
+    
+    if color_palette is None:
+        color_palette = sns.color_palette('Set1', K)
     cluster_colors = [color_palette[x] for x in labels]
     
     
@@ -113,13 +127,12 @@ def infer_lineage(sc_object,si=0,sf=1,method = 'MPFT',flux_fraction = 0.9, size_
         
     if method == 'MPPT':
         M = msm.markov_model(P_hat)
-    
         
-        state_reorder = np.array(range(K))
-        state_reorder[0] = si
-        state_reorder[-1] = sf
-        state_reorder[sf+1:-1]=state_reorder[sf+1:-1]+1
-        state_reorder[1:si]=state_reorder[1:si]-1
+        #state_reorder = np.array(range(K))
+        #state_reorder[0] = si
+        #state_reorder[-1] = sf
+        #state_reorder[sf+1:-1]=state_reorder[sf+1:-1]+1
+        #state_reorder[1:si]=state_reorder[1:si]-1
         tpt = msm.tpt(M, [si], [sf])
         Fsub = tpt.major_flux(fraction=flux_fraction)
         Fsubpercent = 100.0 * Fsub / tpt.total_flux
