@@ -128,7 +128,7 @@ class NetworkPlot(object):
         ptext = center + offset * vnorm
         self.ax.text(
             ptext[0], ptext[1], label, size=arrow_label_size,
-            horizontalalignment='left', verticalalignment='top', zorder=100)
+            horizontalalignment='left', verticalalignment='baseline', rotation = 45, zorder=100,fontweight = 'bold')
 
     def plot_network(
         self, state_sizes=None, state_scale=1.0, state_colors='#ff5500', state_labels='auto',
