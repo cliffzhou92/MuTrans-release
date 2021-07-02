@@ -11,11 +11,11 @@ We proposed a method based on the multiscale technique for stochastic dynamical 
 
 ## Installation
 ### In Matlab:
-To display gene expression matrix by Transcendental, one need the 'smooth' function (https://www.mathworks.com/help/curvefit/smoothing.html) from Curve Fitting toolbox of Matlab.
+The code has been tested in Matlab R2019b and R2020a. To display gene expression matrix by Transcendental, one need the 'smooth' function (https://www.mathworks.com/help/curvefit/smoothing.html) from Curve Fitting toolbox of Matlab.
 
 ### In Python:
-1. install the matlab engine API for python, [instructions here](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html)
-2. install the dependency package [PyEMMA](http://emma-project.org/latest/INSTALL.html), [Scanpy](https://scanpy.readthedocs.io/en/stable/installation.html), Numpy, Pandas and Seaborn.
+1. Install the matlab engine API for python, [instructions here](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html)
+2. Install the dependency package [PyEMMA >=2.5.6](http://emma-project.org/latest/INSTALL.html), [Scanpy](https://scanpy.readthedocs.io/en/stable/installation.html), Numpy, Pandas and Seaborn.
 3. cd to the ``./Example/`` folder and analysis in Jupyter notebook
 
 ## Basic Usage
@@ -32,13 +32,11 @@ Output = DynamicalAnalysis(data,par)
 ```
 
 ```
-Lineage = InferLineage(Output,root,par)
+Lineage = InferLineage(Output,par)
 
 %% Infer the cell lineage based on multi-scale analysis results
 
 %% Output: the output object from DynamicalAnalysis function
-
-%% root: the root state of Lineage
 
 %% par: the adjustable parameters
 
@@ -73,6 +71,8 @@ Genes = GeneAnalysis(i,j,Output,par)
 ```
 import pyMuTrans as pm
 out = pm.plot_cluster_num(adata, par, k_plot= 10) # use EPI to determine number of clusters
+par["reduce_large_scale"] = True # optional, to use DECLARE module speeding-up the calculation
+par["reduce_num_meta_cell"] = 1500 # optional, to set the number of microsopic meta-stable states in DECLARE
 adata = pm.dynamical_analysis(adata,par) # MuTrans Analysis on Anndata obejct
 pm.infer_lineage(adata,si=2,sf=0,method = "MPPT",size_point =40, size_text = 10,alpha_point = 0.5) # plot the transition trajectory on dynamical manifold
 ```
