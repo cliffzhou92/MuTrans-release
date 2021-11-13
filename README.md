@@ -11,7 +11,7 @@ We proposed a framework based on the multiscale technique for stochastic dynamic
 
 ## Get Prepared
 ### In Matlab:
-The code has been tested in Matlab R2019b and R2020a. To display gene expression matrix by Transcendental, one need the 'smooth' function (https://www.mathworks.com/help/curvefit/smoothing.html) from Curve Fitting toolbox of Matlab.
+The code has been tested in Matlab R2019b and R2020a with [optimization toolbox](https://www.mathworks.com/products/optimization.html) installed. To display gene expression matrix by Transcendental, one need the 'smooth' function (https://www.mathworks.com/help/curvefit/smoothing.html) from Curve Fitting toolbox of Matlab.
 
 ### In Python:
 1. Install the matlab engine API for python, [instructions here](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html)
